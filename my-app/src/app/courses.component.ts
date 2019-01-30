@@ -7,12 +7,20 @@ import { Component } from '@angular/core';
     template: ` <h2> {{ "String Interpolation Example " + "Title : " + title }} </h2>
                 <ul>
                     <li *ngFor="let course of courses"> {{ course }} </li>
-                </ul> `
+                </ul>
+                <img  [src] = "imgUrl"/>
+                <table>
+                    <tr>
+                        <td [attr.colsapn]="colSpan"> </td>
+                    </tr>
+                </table>`
 })
 
 export class CoursesComponent {
     title = 'List Of Courses';
     courses;
+    imgUrl = "https://www.pexels.com/photo/nature-red-love-romantic-67636/";
+    colSpan = 2;
 
   constructor(service: CoursesService) {
       // let service = new CoursesService();
