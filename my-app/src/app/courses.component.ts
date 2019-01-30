@@ -13,15 +13,27 @@ import { Component } from '@angular/core';
                     <tr>
                         <td [attr.colsapn]="colSpan"> </td>
                     </tr>
-                </table>`
+                </table>
+                <button class = "btn btn-primary" [class.active]="isActive" >Save </button>
+                <button [style.background]="isActive ? 'blue' : 'white'" >Save </button>
+                <div (click)="onDivClick()">
+                    <button (click)="onSave($event)">show</button>
+                </div>`
 })
-
 export class CoursesComponent {
     title = 'List Of Courses';
     courses;
-    imgUrl = "https://www.pexels.com/photo/nature-red-love-romantic-67636/";
+    imgUrl = 'https://www.pexels.com/photo/nature-red-love-romantic-67636/';
     colSpan = 2;
+    isActive = true;
 
+    onDivClick() {
+        console.log('Div was clicked');
+    }
+    onSave($event) {
+        $event.stopPropagation();
+        console.log('Button was clicked',$event);
+    }
   constructor(service: CoursesService) {
       // let service = new CoursesService();
       this.courses = service.getCourses();
