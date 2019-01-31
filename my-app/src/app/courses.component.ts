@@ -1,42 +1,27 @@
-import { CoursesService } from './courses.service';
 import { Component } from '@angular/core';
 
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'courses',
-    template: ` <h2> {{ "String Interpolation Example " + "Title : " + title }} </h2>
-                <ul>
-                    <li *ngFor="let course of courses"> {{ course }} </li>
-                </ul>
-                <img  [src] = "imgUrl"/>
-                <table>
-                    <tr>
-                        <td [attr.colsapn]="colSpan"> </td>
-                    </tr>
-                </table>
-                <button class = "btn btn-primary" [class.active]="isActive" >Save </button>
-                <button [style.background]="isActive ? 'blue' : 'white'" >Save </button>
-                <div (click)="onDivClick()">
-                    <button (click)="onSave($event)">show</button>
-                </div>`
+    template: `<input [value]="email" (keyup.enter) = "email=$event.target.value; onKeyUp()"/>
+                <input [(ngModel)]="email" (keyup.enter) = "onKeyUp()"/> <br/>
+                {{course.title | uppercase | lowercase }} <br/>
+                {{course.students | number }} <br/>
+                {{course.rating | number:'1.1-4'}} <br/>
+                {{course.price | currency:'AUD':true:'3.1-2' }} <br/>
+                {{course.releaseDate | date:'long'}} <br/>`
 })
 export class CoursesComponent {
-    title = 'List Of Courses';
-    courses;
-    imgUrl = 'https://www.pexels.com/photo/nature-red-love-romantic-67636/';
-    colSpan = 2;
-    isActive = true;
+    email = 'me@example.com';
+    course = {
+                title : 'The Complete Angular Course',
+                rating : 4.9745 ,
+                students : 30123,
+                price : 190.25,
+                releaseDate : new Date(2016, 3, 1)
+            };
 
-    onDivClick() {
-        console.log('Div was clicked');
-    }
-    onSave($event) {
-        $event.stopPropagation();
-        console.log('Button was clicked',$event);
-    }
-  constructor(service: CoursesService) {
-      // let service = new CoursesService();
-      this.courses = service.getCourses();
+  onKeyUp() {
+      console.log(this.email);
   }
-
 }
